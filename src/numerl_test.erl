@@ -131,11 +131,32 @@ tr_test() ->
     true = numerl:'=='(CM3, numerl:tr(numerl:matrix([[1.0], [2.0]]))),
     CM1 = numerl:tr(CM2).
 
+%Creates a random matrix of size NxN
+rnd_erl_matrix(N)->
+    numerl:matrix([ [rand:uniform(100) || _ <- lists:seq(1, N)] || _ <- lists:seq(1,N)]).
+rnd_matrix(N)->
+    [ [rand:uniform(100) || _ <- lists:seq(1, N)] || _ <- lists:seq(1,N)].
+
+%Creates an inversible matrix: use DGESV to see if the matrix defines a solvable system.
+rnd_inv_matrix(N) when N > 1->
+    EM = rnd_erl_matrix(N),
+    R = numerl:dgesv(EM,EM),
+    if is_atom(R) ->
+        rnd_inv_matrix(N);
+    true ->
+        EM
+    end;
+rnd_inv_matrix(1)->
+    rnd_inv_matrix(1).
+
 inv_test() ->
     M = numerl:matrix([[2.0, -1.0, 0.0], [-1.0, 2.0, -1.0], [0.0, -1.0, 2.0]]),
     M_inv = numerl:inv(M),
-    io:fwrite(numerl:print(M_inv),[]),
-    true = numerl:'=='(numerl:'*'(M, M_inv), numerl:eye(3)).
+    %io:fwrite(numerl:print(M_inv),[]),
+    true = numerl:'=='(numerl:'*'(M, M_inv), numerl:eye(3)),
+    BM = rnd_inv_matrix(500),
+    true = numerl:'=='(numerl:'*'(numerl:inv(BM), BM), numerl:eye(500)). 
+
 
 ddot_test() ->
     Incs = numerl:matrix([[1, 2, 3, 4]]),

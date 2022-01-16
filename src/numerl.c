@@ -5,14 +5,6 @@
 #include <gsl/gsl_cblas.h>
 #include <lapacke.h>
 
-/*
-----------------------------------------------------------------------------------------------------|
-                        ------------------------------------------                                  |
-                        |               INIT FC                  |                                  |
-                        ------------------------------------------                                  |
-----------------------------------------------------------------------------------------------------|
-*/
-
 
 ERL_NIF_TERM atom_nok;
 ERL_NIF_TERM atom_true;
@@ -47,7 +39,7 @@ typedef struct{
 
 
 //Access asked coordinates of matrix
-double* matrix_at(int col, int row, Matrix m){
+double* matrix_at(int row, int col, Matrix m){
     return &m.content[row*m.n_cols + col];
 }
 
@@ -206,12 +198,42 @@ int enif_get(ErlNifEnv* env, const ERL_NIF_TERM* erl_terms, const char* format, 
     return valid;
 }
 
+//Benchmark
+ERL_NIF_TERM nif_max_list(ErlNifEnv * env, int argc, const ERL_NIF_TERM argv[]){
+    ERL_NIF_TERM head = argv[0];
 
-//----------------------------------------------------------------------------------------------------|
-//                        ------------------------------------------                                  |
-//                        |                   NIFS                 |                                  |
-//                        ------------------------------------------                                  |
-//----------------------------------------------------------------------------------------------------|
+    ERL_NIF_TERM elem;
+
+    int current, max = 0;
+
+    for(int i = 0; enif_get_list_cell(env, head, &elem, &head);){
+        enif_get_int(env, elem, &current);
+        if(max < current){
+            max = current;
+        }
+    }
+
+    return enif_make_int(env, max);
+}
+
+ERL_NIF_TERM nif_max_matrix(ErlNifEnv * env, int argc, const ERL_NIF_TERM argv[]){
+    Matrix L;
+    enif_get_matrix(env, argv[0], &L);
+    int max = 0;
+
+    for(int i = 0; i<L.n_cols * L.n_rows; i++){
+        max = L.content[i] > max? L.content[i]:max;
+    }
+
+    return enif_make_int(env, max);
+}
+
+ERL_NIF_TERM nif_nok(ErlNifEnv * env, int argc, const ERL_NIF_TERM argv[]){
+    if(argc > 0)
+        return enif_make_badarg(env);
+        
+    return atom_nok;
+}
 
 
 //@arg 0: List of Lists of numbers.
@@ -290,7 +312,6 @@ ERL_NIF_TERM nif_matrix_print(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[
         return enif_make_badarg(env);
     return matrix_to_atom(env, m);
 }
-
 
 //@arg 0: matrix.
 //@arg 1: int, coord m: row
@@ -392,10 +413,8 @@ ERL_NIF_TERM nif_plus(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]){
 
     Matrix result = matrix_alloc(a.n_rows, a.n_cols);
     
-    for(int i = 0; i < a.n_cols; i++){
-        for(int j = 0; j < a.n_rows; j++){
-            *matrix_at(i,j, result) = *matrix_at(i,j,a) + *matrix_at(i,j,b);
-        }
+    for(int i = 0; i < a.n_cols*a.n_rows; i++){
+            result.content[i] = a.content[i] + b.content[i];
     }
 
     return matrix_to_erl(env, result);
@@ -416,10 +435,8 @@ ERL_NIF_TERM nif_minus(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]){
 
     Matrix result = matrix_alloc(a.n_rows, a.n_cols);
     
-    for(int i = 0; i < a.n_cols; i++){
-        for(int j = 0; j < a.n_rows; j++){
-            *matrix_at(i,j, result) = *matrix_at(i,j,a) - *matrix_at(i,j,b);
-        }
+    for(int i = 0; i < a.n_cols*a.n_rows; i++){
+        result.content[i] = a.content[i] - b.content[i];
     }
 
     return matrix_to_erl(env, result);
@@ -491,6 +508,41 @@ ERL_NIF_TERM nif_mult_num(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]){
 //@arg 0: Matrix.
 //@arg 1: Matrix.
 //@return Matrix resulting of multiplication.
+ERL_NIF_TERM _nif_mult_matrix_tr(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]){
+   
+    Matrix a,b;
+    if(!enif_get(env, argv, "mm", &a, &b))
+        return enif_make_badarg(env);
+        
+    int n_rows = a.n_rows;
+    int n_cols = b.n_cols;
+
+    if(a.n_cols != b.n_rows)
+        return atom_nok;
+
+    Matrix result = matrix_alloc(n_rows, n_cols);
+    memset(result.content, 0.0, n_rows*n_cols * sizeof(double));
+
+    
+    Matrix b_tr = tr(b); 
+    
+    for(int i = 0; i < n_rows; i++){
+        for(int j = 0; j < n_cols; j++){
+           for(int k = 0; k<a.n_cols; k++){
+               result.content[j+i*result.n_cols] += a.content[k+i*a.n_cols] * b_tr.content[k+j*b_tr.n_cols];
+           }
+        }
+    }
+
+    free_matrix(b_tr);
+    
+    return matrix_to_erl(env, result);
+}
+
+
+//@arg 0: Matrix.
+//@arg 1: Matrix.
+//@return Matrix resulting of multiplication.
 ERL_NIF_TERM _nif_mult_matrix(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]){
    
     Matrix a,b;
@@ -506,22 +558,17 @@ ERL_NIF_TERM _nif_mult_matrix(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[
     Matrix result = matrix_alloc(n_rows, n_cols);
     memset(result.content, 0.0, n_rows*n_cols * sizeof(double));
 
-    //Will this create a mem leak?
-    Matrix b_tr = tr(b); 
-    
     for(int i = 0; i < n_rows; i++){
-        for(int j = 0; j < n_cols; j++){
-           for(int k = 0; k<a.n_cols; k++){
-               result.content[j+i*result.n_cols] += a.content[k+i*a.n_cols] * b_tr.content[k+j*b_tr.n_cols];
+        for(int k = 0; k<a.n_cols; k++){
+            double val = a.content[i*a.n_cols + k];
+            for(int j = 0; j < n_cols; j++){
+               result.content[j+i*result.n_cols] += val * b.content[k*b.n_cols + j];
            }
         }
     }
-
-    free_matrix(b_tr);
-
+    
     return matrix_to_erl(env, result);
 }
-
 
 //@arg0: Matrix.
 ERL_NIF_TERM nif_tr(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]){
@@ -610,11 +657,6 @@ ERL_NIF_TERM nif_inv(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]){
     return matrix_to_erl(env, inv);
 }
 
-//----------------------------------------------------------------------------------------------------|
-//                        ------------------------------------------                                  |
-//                        |                   CBLAS                |                                  |
-//                        ------------------------------------------                                  |
-//----------------------------------------------------------------------------------------------------|
 //Some CBLAS wrappers.
 
 
@@ -641,8 +683,7 @@ ERL_NIF_TERM nif_ddot(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]){
 
 //Performs blas_daxpy
 //Input: a number, vectors X and Y
-//Output: a vector of same dimension then Y, containing alpha X + Y
-//------------------------------------------------------------------------
+//Output: a vector of same dimension as Y, containing alpha X + Y
 ERL_NIF_TERM nif_daxpy(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]){
     Matrix x,y;
     int n;
@@ -737,15 +778,6 @@ ERL_NIF_TERM nif_dgesv(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]){
     int error = LAPACKE_dgesv(LAPACK_ROW_MAJOR, n, nB.n_cols, nA.content, n, ipiv, nB.content, nB.n_rows);
 
     if(!error){
-        //CORRECT THIS SHIT RIGHT HERE
-        int in_place = 1;
-        for(int i = 0; i<n && in_place; i++)
-            if(!ipiv[i] != i)
-                in_place = 0;
-        
-        if(in_place)
-            return enif_make_badarg(env);
-                
         return matrix_to_erl(env, nB);
     }
     else if (error < 0){
@@ -756,7 +788,21 @@ ERL_NIF_TERM nif_dgesv(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]){
     }
 }
 
+ERL_NIF_TERM nif_memleak(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]){
+    enif_alloc(sizeof(double));
+    return atom_nok;
+}
+
 ErlNifFunc nif_funcs[] = {
+    //Benchmark
+    {"nif_max", 1, nif_max_list},
+    {"nif_max_matrix", 1, nif_max_matrix},
+    {"nif_nok", 0, nif_nok},
+
+    //Memory leak
+    {"memleak", 0, nif_memleak},
+
+    //Actual library
     {"matrix", 1, nif_matrix},
     {"print", 1, nif_matrix_print},
     {"get", 3, nif_get},
@@ -768,6 +814,7 @@ ErlNifFunc nif_funcs[] = {
     {"zeros", 2, nif_zero},
     {"eye", 1, nif_eye},
     {"*_matrix", 2, _nif_mult_matrix},
+    {"*tr", 2, _nif_mult_matrix_tr},
     {"*_num", 2, nif_mult_num},
     {"tr", 1, nif_tr},
     {"inv", 1, nif_inv},
