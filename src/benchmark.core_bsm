@@ -1,0 +1,2045 @@
+module 'benchmark' ['b'/3,
+		    'b'/5,
+		    'bench'/0,
+		    'bench'/2,
+		    'bench'/3,
+		    'bench'/5,
+		    'bench_dot'/1,
+		    'bench_emax'/2,
+		    'bench_fcts'/5,
+		    'bench_inv'/0,
+		    'bench_inv'/2,
+		    'bench_mat_creation'/1,
+		    'bench_max'/0,
+		    'bench_max'/2,
+		    'bench_mult'/0,
+		    'bench_mult'/1,
+		    'bench_mult'/2,
+		    'bench_mult_erl'/1,
+		    'bench_mult_num'/0,
+		    'bench_mult_num'/2,
+		    'bench_mult_tr'/1,
+		    'bench_multb'/0,
+		    'bench_multb'/2,
+		    'bench_nano'/2,
+		    'bench_nano'/3,
+		    'bench_nano'/5,
+		    'bench_plus'/0,
+		    'bench_plus'/1,
+		    'bench_plus'/2,
+		    'bench_small_fcts'/6,
+		    'bench_small_inv'/2,
+		    'bench_small_mult'/0,
+		    'bench_small_mult'/2,
+		    'bench_small_zero'/0,
+		    'bench_small_zero'/2,
+		    'bench_solve'/0,
+		    'bench_solve'/2,
+		    'bench_tr'/0,
+		    'bench_tr'/1,
+		    'bench_tr'/2,
+		    'bench_zeros'/0,
+		    'bench_zeros'/2,
+		    'btr'/1,
+		    'btr'/2,
+		    'btrf'/1,
+		    'btrf'/4,
+		    'empty_fun'/0,
+		    'inv_matrix'/1,
+		    'loop_fct_for_s'/2,
+		    'loop_fct_until'/2,
+		    'm_tr'/1,
+		    'module_info'/0,
+		    'module_info'/1,
+		    'reduce_col'/3,
+		    'rnd'/0,
+		    'rnd_matrix'/1,
+		    'rnd_row'/1,
+		    'rnd_vec_max'/1,
+		    'run_all_fcts'/2,
+		    'show_results'/3,
+		    'split'/2,
+		    'split_tr'/3,
+		    'write_to_file'/3]
+    attributes [%% Line 1
+		'file' =
+		    %% Line 1
+		    [{[98|[101|[110|[99|[104|[109|[97|[114|[107|[46|[101|[114|[108]]]]]]]]]]]]],1}],
+		%% Line 2
+		'compile' =
+		    %% Line 2
+		    ['export_all']]
+'bench_nano'/5 =
+    %% Line 9
+    fun (_0,_1,_2,_3,_4) ->
+	case <_0,_1,_2,_3,_4> of
+	  <_17,_18,_19,0,R> when 'true' ->
+	      %% Line 10
+	      R
+	  %% Line 11
+	  <F,Arg,N,I,R> when 'true' ->
+	      let <T> =
+		  call %% Line 12
+		       'erlang':%% Line 12
+				'system_time'
+		      (%% Line 12
+		       'nanosecond')
+	      in  do  %% Line 13
+		      apply F
+			  (Arg)
+		      let <_11> =
+			  call %% Line 14
+			       'erlang':%% Line 14
+					'-'
+			      (%% Line 14
+			       I, %% Line 14
+				  1)
+		      in  let <_8> =
+			      call %% Line 14
+				   'erlang':%% Line 14
+					    'system_time'
+				  (%% Line 14
+				   'nanosecond')
+			  in  let <_6> =
+				  call %% Line 14
+				       'erlang':%% Line 14
+						'float'
+				      (%% Line 14
+				       N)
+			      in  let <_7> =
+				      call %% Line 14
+					   'erlang':%% Line 14
+						    '/'
+					  (%% Line 14
+					   T, _6)
+				  in  let <_9> =
+					  call %% Line 14
+					       'erlang':%% Line 14
+							'-'
+					      (_8, _7)
+				      in  let <_10> =
+					      call %% Line 14
+						   'erlang':%% Line 14
+							    '+'
+						  (%% Line 14
+						   R, _9)
+					  in  %% Line 14
+					      apply 'bench_nano'/5
+						  (F, Arg, N, _11, _10)
+	end
+'bench_nano'/3 =
+    %% Line 16
+    fun (_0,_1,_2) ->
+	do  %% Line 18
+	    apply 'bench_nano'/5
+		(_0, _1, _2, _2, ( 0.00000000000000000000e+00
+				   -| ['result_not_wanted'] ))
+	    %% Line 19
+	    apply 'bench_nano'/5
+		(_0, _1, _2, _2, 0.00000000000000000000e+00)
+'bench_nano'/2 =
+    %% Line 21
+    fun (_0,_1) ->
+	%% Line 22
+	apply 'bench_nano'/3
+	    (_0, _1, 5)
+'bench'/5 =
+    %% Line 26
+    fun (_0,_1,_2,_3,_4) ->
+	case <_0,_1,_2,_3,_4> of
+	  <_15,_16,_17,0,R> when 'true' ->
+	      %% Line 27
+	      R
+	  %% Line 29
+	  <F,A,N,I,R> when 'true' ->
+	      %% Line 30
+	      case call 'timer':'tc'
+		       (F, A) of
+		<{Time,_18}> when 'true' ->
+		    let <_9> =
+			call %% Line 31
+			     'erlang':%% Line 31
+				      '-'
+			    (%% Line 31
+			     I, %% Line 31
+				1)
+		    in  let <_6> =
+			    call %% Line 31
+				 'erlang':%% Line 31
+					  'float'
+				(%% Line 31
+				 N)
+			in  let <_7> =
+				call %% Line 31
+				     'erlang':%% Line 31
+					      '/'
+				    (%% Line 31
+				     Time, _6)
+			    in  let <_8> =
+				    call %% Line 31
+					 'erlang':%% Line 31
+						  '+'
+					(%% Line 31
+					 R, _7)
+				in  %% Line 31
+				    apply 'bench'/5
+					(F, A, N, _9, _8)
+		( <_5> when 'true' ->
+		      primop 'match_fail'
+			  ({'badmatch',_5})
+		  -| ['compiler_generated'] )
+	      end
+	end
+'bench'/3 =
+    %% Line 34
+    fun (_0,_1,_2) ->
+	let <Argv> =
+	    apply _1
+		(_2)
+	in  do  %% Line 37
+		apply 'bench'/5
+		    (_0, Argv, _2, _2, ( 0.00000000000000000000e+00
+					 -| ['result_not_wanted'] ))
+		%% Line 38
+		apply 'bench'/5
+		    (_0, Argv, _2, _2, 0.00000000000000000000e+00)
+'bench'/2 =
+    %% Line 41
+    fun (_0,_1) ->
+	%% Line 42
+	apply 'bench'/3
+	    (_0, _1, 5)
+'rnd_row'/1 =
+    %% Line 48
+    fun (_0) ->
+	let <_7> =
+	    letrec
+		'lc$^0'/1 =
+		    %% Line 49
+		    fun (_4) ->
+			case _4 of
+			  <[_9|_2]> when 'true' ->
+			      let <_5> =
+				  call 'rand':'uniform'
+				      (100)
+			      in  let <_6> =
+				      apply 'lc$^0'/1
+					  (_2)
+				  in  ( [_5|_6]
+					-| ['compiler_generated'] )
+			  <[]> when 'true' ->
+			      []
+			  ( <_10> when 'true' ->
+				( primop 'match_fail'
+				      ({'function_clause',_10})
+				  -| [{'function_name',{'lc$^0',1}}] )
+			    -| ['compiler_generated'] )
+			end
+	    in  let <_3> =
+		    call %% Line 49
+			 'lists':%% Line 49
+				 'seq'
+			(%% Line 49
+			 1, _0)
+		in  %% Line 49
+		    apply 'lc$^0'/1
+			(_3)
+	in  %% Line 49
+	    [_7|[]]
+'rnd_matrix'/1 =
+    %% Line 52
+    fun (_0) ->
+	%% Line 53
+	( letrec
+	      'lc$^0'/1 =
+		  fun (_4) ->
+		      case _4 of
+			<[_14|_2]> when 'true' ->
+			    let <_11> =
+				letrec
+				    'lc$^1'/1 =
+					fun (_8) ->
+					    case _8 of
+					      <[_15|_6]> when 'true' ->
+						  let <_9> =
+						      call 'rand':'uniform'
+							  (100)
+						  in  let <_10> =
+							  apply 'lc$^1'/1
+							      (_6)
+						      in  ( [_9|_10]
+							    -| ['compiler_generated'] )
+					      <[]> when 'true' ->
+						  []
+					      ( <_16> when 'true' ->
+						    ( primop 'match_fail'
+							  ({'function_clause',_16})
+						      -| [{'function_name',{'lc$^1',1}}] )
+						-| ['compiler_generated'] )
+					    end
+				in  let <_7> =
+					call 'lists':'seq'
+					    (1, _0)
+				    in  apply 'lc$^1'/1
+					    (_7)
+			    in  let <_12> =
+				    apply 'lc$^0'/1
+					(_2)
+				in  ( [_11|_12]
+				      -| ['compiler_generated'] )
+			<[]> when 'true' ->
+			    []
+			( <_17> when 'true' ->
+			      ( primop 'match_fail'
+				    ({'function_clause',_17})
+				-| [{'function_name',{'lc$^0',1}}] )
+			  -| ['compiler_generated'] )
+		      end
+	  in  let <_3> =
+		  call 'lists':'seq'
+		      (1, _0)
+	      in  apply 'lc$^0'/1
+		      (_3)
+	  -| ['list_comprehension'] )
+'rnd'/0 =
+    %% Line 56
+    fun () ->
+	%% Line 57
+	call 'rand':'uniform'
+	    (100)
+'inv_matrix'/1 =
+    %% Line 61
+    fun (_0) ->
+	case _0 of
+	  <N>
+	      when call 'erlang':'>'
+		    (_0,
+		     1) ->
+	      let <M> =
+		  apply %% Line 62
+			'rnd_matrix'/1
+		      (%% Line 62
+		       N)
+	      in  let <EM> =
+		      call %% Line 63
+			   'numerl':%% Line 63
+				    'matrix'
+			  (%% Line 63
+			   M)
+		  in  let <R> =
+			  call %% Line 64
+			       'numerl':%% Line 64
+					'dgesv'
+			      (%% Line 64
+			       EM, %% Line 64
+				   EM)
+		      in  %% Line 65
+			  case <> of
+			    <>
+				when call 'erlang':'is_atom'
+				      (R) ->
+				%% Line 66
+				apply 'inv_matrix'/1
+				    (N)
+			    %% Line 67
+			    <> when 'true' ->
+				%% Line 68
+				M
+			  end
+	  %% Line 70
+	  <1> when 'true' ->
+	      %% Line 71
+	      apply 'rnd_matrix'/1
+		  (1)
+	  ( <_4> when 'true' ->
+		( primop 'match_fail'
+		      ({'function_clause',_4})
+		  -| [{'function_name',{'inv_matrix',1}}] )
+	    -| ['compiler_generated'] )
+	end
+'show_results'/3 =
+    %% Line 74
+    fun (_0,_1,_2) ->
+	let <_3> =
+	    call %% Line 75
+		 'erlang':%% Line 75
+			  '/'
+		(_1, _2)
+	in  %% Line 75
+	    call 'io':'format'
+		([126|[110|[84|[101|[115|[116|[105|[110|[103|[32|[126|[119|[10|[69|[114|[108|[97|[110|[103|[32|[110|[97|[116|[105|[118|[101|[58|[32|[32|[126|[102|[10|[78|[105|[102|[58|[32|[126|[102|[10|[70|[97|[99|[116|[111|[114|[58|[126|[102|[126|[110]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]], [_0|[_1|[_2|[_3|[]]]]])
+'write_to_file'/3 =
+    %% Line 78
+    fun (_0,_1,_2) ->
+	let <_3> =
+	    call %% Line 79
+		 'string':%% Line 79
+			  'concat'
+		(%% Line 79
+		 [46|[46|[47|[98|[101|[110|[99|[104|[82|[101|[115|[47]]]]]]]]]]]], _0)
+	in  let <FName> =
+		call %% Line 79
+		     'string':%% Line 79
+			      'concat'
+		    (_3, %% Line 79
+			 [46|[116|[120|[116]]]])
+	    in  %% Line 80
+		case call 'file':'open'
+			 (FName, ['write']) of
+		  <{'ok',File}> when 'true' ->
+		      %% Line 81
+		      call 'io':'fwrite'
+			  (File, [126|[112|[126|[110|[126|[112]]]]]], [_1|[_2|[]]])
+		  ( <_5> when 'true' ->
+			primop 'match_fail'
+			    ({'badmatch',_5})
+		    -| ['compiler_generated'] )
+		end
+'bench_mat_creation'/1 =
+    %% Line 83
+    fun (_0) ->
+	do  %% Line 84
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[109|[97|[116|[32|[99|[114|[101|[97|[116|[105|[111|[110|[126|[110]]]]]]]]]]]]]]]]]]]]]]])
+	    let <_7> =
+		letrec
+		    'lc$^0'/1 =
+			%% Line 85
+			fun (_4) ->
+			    case _4 of
+			      <[_16|_2]> when 'true' ->
+				  let <_5> =
+				      call 'rand':'uniform'
+					  (100)
+				  in  let <_6> =
+					  apply 'lc$^0'/1
+					      (_2)
+				      in  ( [_5|_6]
+					    -| ['compiler_generated'] )
+			      <[]> when 'true' ->
+				  []
+			      ( <_18> when 'true' ->
+				    ( primop 'match_fail'
+					  ({'function_clause',_18})
+				      -| [{'function_name',{'lc$^0',1}}] )
+				-| ['compiler_generated'] )
+			    end
+		in  let <_3> =
+			call %% Line 85
+			     'lists':%% Line 85
+				     'seq'
+			    (%% Line 85
+			     0, _0)
+		    in  %% Line 85
+			apply 'lc$^0'/1
+			    (_3)
+	    in  let <List> =
+		    [_7|%% Line 85
+			[]]
+		in  let <_11> =
+			fun (_9) ->
+			    %% Line 86
+			    [List|[]]
+		    in  let <Time> =
+			    apply %% Line 86
+				  'bench'/3
+				(%% Line 86
+				 fun 'numerl':'matrix'/1, _11, %% Line 86
+							       10000)
+			in  let <_14> =
+				call %% Line 87
+				     'erlang':%% Line 87
+					      'float'
+				    (%% Line 87
+				     Time)
+			    in  %% Line 87
+				call 'io':'format'
+				    ([82|[101|[115|[117|[108|[116|[58|[126|[102|[126|[110]]]]]]]]]]], [_14|[]])
+'bench_plus'/1 =
+    %% Line 89
+    fun (_0) ->
+	do  %% Line 90
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[112|[108|[117|[115|[126|[110]]]]]]]]]]]]]]])
+	    let <_7> =
+		fun (_5) ->
+		    let <_1> =
+			apply %% Line 91
+			      'rnd_matrix'/1
+			    (_0)
+		    in  let <_2> =
+			    call %% Line 91
+				 'numerl':%% Line 91
+					  'matrix'
+				(_1)
+			in  let <_3> =
+				apply %% Line 91
+				      'rnd_matrix'/1
+				    (_0)
+			    in  let <_4> =
+				    call %% Line 91
+					 'numerl':%% Line 91
+						  'matrix'
+					(_3)
+				in  %% Line 91
+				    [_2|[_4|[]]]
+	    in  let <Time> =
+		    apply %% Line 91
+			  'bench'/3
+			(%% Line 91
+			 fun 'numerl':'+'/2, _7, %% Line 91
+						 1000)
+		in  let <_10> =
+			call %% Line 92
+			     'erlang':%% Line 92
+				      'float'
+			    (%% Line 92
+			     Time)
+		    in  %% Line 92
+			call 'io':'format'
+			    ([82|[101|[115|[117|[108|[116|[58|[126|[102|[126|[110]]]]]]]]]]], [_10|[]])
+'bench_mult'/1 =
+    %% Line 94
+    fun (_0) ->
+	do  %% Line 95
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[109|[117|[108|[116|[105|[112|[108|[105|[99|[97|[116|[105|[111|[110|[32|[111|[102|[32|[109|[97|[116|[114|[105|[99|[101|[115|[126|[110]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]])
+	    let <_7> =
+		fun (_5) ->
+		    let <_1> =
+			apply %% Line 96
+			      'rnd_matrix'/1
+			    (_0)
+		    in  let <_2> =
+			    call %% Line 96
+				 'numerl':%% Line 96
+					  'matrix'
+				(_1)
+			in  let <_3> =
+				apply %% Line 96
+				      'rnd_matrix'/1
+				    (_0)
+			    in  let <_4> =
+				    call %% Line 96
+					 'numerl':%% Line 96
+						  'matrix'
+					(_3)
+				in  %% Line 96
+				    [_2|[_4|[]]]
+	    in  let <Time> =
+		    apply %% Line 96
+			  'bench'/3
+			(%% Line 96
+			 fun 'numerl':'*'/2, _7, %% Line 96
+						 1000)
+		in  let <_10> =
+			call %% Line 97
+			     'erlang':%% Line 97
+				      'float'
+			    (%% Line 97
+			     Time)
+		    in  %% Line 97
+			call 'io':'format'
+			    ([82|[101|[115|[117|[108|[116|[58|[126|[102|[126|[110]]]]]]]]]]], [_10|[]])
+'bench_mult_tr'/1 =
+    %% Line 99
+    fun (_0) ->
+	do  %% Line 100
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[109|[117|[108|[116|[105|[112|[108|[105|[99|[97|[116|[105|[111|[110|[32|[111|[102|[32|[109|[97|[116|[114|[105|[99|[101|[115|[32|[116|[114|[126|[110]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]])
+	    let <_7> =
+		fun (_5) ->
+		    let <_1> =
+			apply %% Line 101
+			      'rnd_matrix'/1
+			    (_0)
+		    in  let <_2> =
+			    call %% Line 101
+				 'numerl':%% Line 101
+					  'matrix'
+				(_1)
+			in  let <_3> =
+				apply %% Line 101
+				      'rnd_matrix'/1
+				    (_0)
+			    in  let <_4> =
+				    call %% Line 101
+					 'numerl':%% Line 101
+						  'matrix'
+					(_3)
+				in  %% Line 101
+				    [_2|[_4|[]]]
+	    in  let <Time> =
+		    apply %% Line 101
+			  'bench'/3
+			(%% Line 101
+			 fun 'numerl':'*tr'/2, _7, %% Line 101
+						   1000)
+		in  let <_10> =
+			call %% Line 102
+			     'erlang':%% Line 102
+				      'float'
+			    (%% Line 102
+			     Time)
+		    in  %% Line 102
+			call 'io':'format'
+			    ([82|[101|[115|[117|[108|[116|[58|[126|[102|[126|[110]]]]]]]]]]], [_10|[]])
+'bench_mult_erl'/1 =
+    %% Line 104
+    fun (_0) ->
+	do  %% Line 105
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[109|[117|[108|[116|[105|[112|[108|[105|[99|[97|[116|[105|[111|[110|[32|[111|[102|[32|[109|[97|[116|[114|[105|[99|[101|[115|[32|[116|[114|[126|[110]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]])
+	    let <_5> =
+		fun (_3) ->
+		    let <_1> =
+			apply %% Line 106
+			      'rnd_matrix'/1
+			    (_0)
+		    in  let <_2> =
+			    apply %% Line 106
+				  'rnd_matrix'/1
+				(_0)
+			in  %% Line 106
+			    [_1|[_2|[]]]
+	    in  let <Time> =
+		    apply %% Line 106
+			  'bench'/3
+			(%% Line 106
+			 fun 'mat':'*'/2, _5, %% Line 106
+					      1000)
+		in  let <_8> =
+			call %% Line 107
+			     'erlang':%% Line 107
+				      'float'
+			    (%% Line 107
+			     Time)
+		    in  %% Line 107
+			call 'io':'format'
+			    ([82|[101|[115|[117|[108|[116|[58|[126|[102|[126|[110]]]]]]]]]]], [_8|[]])
+'bench_tr'/1 =
+    %% Line 109
+    fun (_0) ->
+	do  %% Line 110
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[116|[114|[32|[111|[102|[32|[115|[113|[117|[97|[114|[101|[32|[109|[97|[116|[114|[105|[120|[126|[110]]]]]]]]]]]]]]]]]]]]]]]]]]]]]])
+	    let <_5> =
+		fun (_3) ->
+		    let <_1> =
+			apply %% Line 111
+			      'rnd_matrix'/1
+			    (_0)
+		    in  let <_2> =
+			    call %% Line 111
+				 'numerl':%% Line 111
+					  'matrix'
+				(_1)
+			in  %% Line 111
+			    [_2|[]]
+	    in  let <Time> =
+		    apply %% Line 111
+			  'bench'/3
+			(%% Line 111
+			 fun 'numerl':'tr'/1, _5, %% Line 111
+						  1000)
+		in  let <_8> =
+			call %% Line 112
+			     'erlang':%% Line 112
+				      'float'
+			    (%% Line 112
+			     Time)
+		    in  %% Line 112
+			call 'io':'format'
+			    ([82|[101|[115|[117|[108|[116|[58|[126|[102|[126|[110]]]]]]]]]]], [_8|[]])
+'bench_dot'/1 =
+    %% Line 114
+    fun (_0) ->
+	do  %% Line 115
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[100|[111|[116|[32|[116|[105|[109|[101|[32|[101|[120|[101|[99|[117|[116|[105|[111|[110|[126|[110]]]]]]]]]]]]]]]]]]]]]]]]]]]]])
+	    let <Steps> =
+		call %% Line 116
+		     'lists':%% Line 116
+			     'seq'
+		    (%% Line 116
+		     0, _0)
+	    in  let <_6> =
+		    letrec
+			'lc$^0'/1 =
+			    %% Line 117
+			    fun (_4) ->
+				case _4 of
+				  <[_27|_3]> when 'true' ->
+				      let <_5> =
+					  apply 'lc$^0'/1
+					      (_3)
+				      in  ( [1|_5]
+					    -| ['compiler_generated'] )
+				  <[]> when 'true' ->
+				      []
+				  ( <_30> when 'true' ->
+					( primop 'match_fail'
+					      ({'function_clause',_30})
+					  -| [{'function_name',{'lc$^0',1}}] )
+				    -| ['compiler_generated'] )
+				end
+		    in  %% Line 117
+			apply 'lc$^0'/1
+			    (Steps)
+		in  let <_12> =
+			letrec
+			    'lc$^1'/1 =
+				%% Line 118
+				fun (_10) ->
+				    case _10 of
+				      <[_28|_9]> when 'true' ->
+					  let <_11> =
+					      apply 'lc$^1'/1
+						  (_9)
+					  in  ( [2|_11]
+						-| ['compiler_generated'] )
+				      <[]> when 'true' ->
+					  []
+				      ( <_31> when 'true' ->
+					    ( primop 'match_fail'
+						  ({'function_clause',_31})
+					      -| [{'function_name',{'lc$^1',1}}] )
+					-| ['compiler_generated'] )
+				    end
+			in  %% Line 118
+			    apply 'lc$^1'/1
+				(Steps)
+		    in  let <Fct> =
+			    fun (_17,_16) ->
+				let <_15> =
+				    call %% Line 119
+					 'lists':%% Line 119
+						 'zipwith'
+					(%% Line 119
+					 fun 'erlang':'*'/2, _17, _16)
+				in  %% Line 119
+				    call 'lists':'sum'
+					(_15)
+			in  let <_23> =
+				fun (_21) ->
+				    %% Line 120
+				    [_6|[_12|[]]]
+			    in  let <Time> =
+				    apply %% Line 120
+					  'bench'/3
+					(%% Line 120
+					 Fct, _23, %% Line 120
+						   1000)
+				in  let <_25> =
+					call %% Line 121
+					     'erlang':%% Line 121
+						      'float'
+					    (%% Line 121
+					     Time)
+				    in  %% Line 121
+					call 'io':'format'
+					    ([82|[101|[115|[117|[108|[116|[58|[126|[102|[126|[110]]]]]]]]]]], [_25|[]])
+'b'/5 =
+    %% Line 130
+    fun (_0,_1,_2,_3,_4) ->
+	case <_0,_1,_2,_3,_4> of
+	  <_15,_16,_17,0,R> when 'true' ->
+	      %% Line 131
+	      R
+	  %% Line 133
+	  <F,A,N,I,R> when 'true' ->
+	      %% Line 134
+	      case call 'timer':'tc'
+		       (F, A) of
+		<{Time,_18}> when 'true' ->
+		    let <_9> =
+			call %% Line 135
+			     'erlang':%% Line 135
+				      '-'
+			    (%% Line 135
+			     I, %% Line 135
+				1)
+		    in  let <_6> =
+			    call %% Line 135
+				 'erlang':%% Line 135
+					  'float'
+				(%% Line 135
+				 N)
+			in  let <_7> =
+				call %% Line 135
+				     'erlang':%% Line 135
+					      '/'
+				    (%% Line 135
+				     Time, _6)
+			    in  let <_8> =
+				    call %% Line 135
+					 'erlang':%% Line 135
+						  '+'
+					(%% Line 135
+					 R, _7)
+				in  %% Line 135
+				    apply 'b'/5
+					(F, A, N, _9, _8)
+		( <_5> when 'true' ->
+		      primop 'match_fail'
+			  ({'badmatch',_5})
+		  -| ['compiler_generated'] )
+	      end
+	end
+'b'/3 =
+    %% Line 138
+    fun (_0,_1,_2) ->
+	do  %% Line 140
+	    apply 'b'/5
+		(_0, _1, ( 500
+			   -| ['result_not_wanted'] ), ( 500
+							 -| ['result_not_wanted'] ), ( 0.00000000000000000000e+00
+										       -| ['result_not_wanted'] ))
+	    %% Line 141
+	    apply 'b'/5
+		(_0, _1, _2, _2, 0.00000000000000000000e+00)
+'bench_fcts'/5 =
+    %% Line 143
+    fun (_0,_1,_2,_3,_4) ->
+	case <_0,_1,_2,_3,_4> of
+	  <_22,_23,[],[],[]> when 'true' ->
+	      %% Line 144
+	      call 'io':'format'
+		  ([70|[105|[110|[105|[115|[104|[101|[100|[46]]]]]]]]])
+	  %% Line 146
+	  <NRuns,Steps,[F|Fcts],[Arg|Args],[File|Files]> when 'true' ->
+	      do  %% Line 147
+		  call 'io':'format'
+		      ([82|[117|[110|[110|[105|[110|[103|[32|[98|[101|[110|[99|[104|[109|[97|[114|[107|[32|[32|[126|[115]]]]]]]]]]]]]]]]]]]]], [File|[]])
+		  let <_11> =
+		      letrec
+			  'lc$^0'/1 =
+			      %% Line 148
+			      fun (_7) ->
+				  case _7 of
+				    <[N|_6]> when 'true' ->
+					let <_8> =
+					    apply Arg
+						(N)
+					in  let <_9> =
+						apply 'b'/3
+						    (F, _8, NRuns)
+					    in  let <_10> =
+						    apply 'lc$^0'/1
+							(_6)
+						in  ( [_9|_10]
+						      -| ['compiler_generated'] )
+				    <[]> when 'true' ->
+					[]
+				    ( <_24> when 'true' ->
+					  ( primop 'match_fail'
+						({'function_clause',_24})
+					    -| [{'function_name',{'lc$^0',1}}] )
+				      -| ['compiler_generated'] )
+				  end
+		      in  %% Line 148
+			  apply 'lc$^0'/1
+			      (Steps)
+		  in  do  %% Line 149
+			  apply 'write_to_file'/3
+			      (File, Steps, _11)
+			  let <_14> =
+			      call %% Line 150
+				   'lists':%% Line 150
+					   'sum'
+				  (_11)
+			  in  let <_13> =
+				  call %% Line 150
+				       'erlang':%% Line 150
+						'+'
+				      (%% Line 150
+				       NRuns, %% Line 150
+					      500)
+			      in  let <_15> =
+				      call %% Line 150
+					   'erlang':%% Line 150
+						    '*'
+					  (_14, _13)
+				  in  let <_16> =
+					  call %% Line 150
+					       'erlang':%% Line 150
+							'/'
+					      (_15, %% Line 150
+						    1000000)
+				      in  do  %% Line 150
+					      call 'io':'format'
+						  ([59|[32|[102|[105|[110|[105|[115|[104|[101|[100|[32|[105|[110|[32|[126|[102|[32|[115|[126|[110]]]]]]]]]]]]]]]]]]]], [_16|[]])
+					      %% Line 151
+					      apply 'bench_fcts'/5
+						  (NRuns, Steps, Fcts, Args, Files)
+	  ( <_21,_20,_19,_18,_17> when 'true' ->
+		( primop 'match_fail'
+		      ({'function_clause',_21,_20,_19,_18,_17})
+		  -| [{'function_name',{'bench_fcts',5}}] )
+	    -| ['compiler_generated'] )
+	end
+'bench_zeros'/2 =
+    %% Line 154
+    fun (_0,_1) ->
+	let <_7> =
+	    fun (_5) ->
+		%% Line 156
+		[_5|[_5|[]]]
+	in  let <_10> =
+		fun (_8) ->
+		    %% Line 156
+		    [_8|[_8|[]]]
+	    in  let <Args> =
+		    [_7|%% Line 156
+			[_10|[]]]
+		in  %% Line 158
+		    apply 'bench_fcts'/5
+			(_0, _1, [fun 'numerl':'zeros'/2|[fun 'mat':'zeros'/2]], Args, [[122|[101|[114|[111|[95|[99]]]]]]|[[122|[101|[114|[111|[95|[101]]]]]]]])
+'bench_zeros'/0 =
+    %% Line 159
+    fun () ->
+	let <_0> =
+	    call %% Line 160
+		 'lists':%% Line 160
+			 'seq'
+		(%% Line 160
+		 20, %% Line 160
+		     200, %% Line 160
+			  20)
+	in  %% Line 160
+	    apply 'bench_zeros'/2
+		(500, _0)
+'bench_mult_num'/2 =
+    %% Line 163
+    fun (_0,_1) ->
+	do  %% Line 164
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[109|[117|[108|[116|[32|[110|[117|[109|[32|[111|[112|[101|[114|[97|[116|[111|[114|[46|[126|[110]]]]]]]]]]]]]]]]]]]]]]]]]]]]])
+	    let <_9> =
+		fun (_7) ->
+		    let <_5> =
+			apply %% Line 166
+			      'rnd'/0
+			    ()
+		    in  let <_6> =
+			    apply %% Line 166
+				  'rnd_matrix'/1
+				(%% Line 166
+				 _7)
+			in  %% Line 166
+			    [_5|[_6|[]]]
+	    in  let <_15> =
+		    fun (_13) ->
+			let <_10> =
+			    apply %% Line 167
+				  'rnd'/0
+				()
+			in  let <_11> =
+				apply %% Line 167
+				      'rnd_matrix'/1
+				    (%% Line 167
+				     _13)
+			    in  let <_12> =
+				    call %% Line 167
+					 'numerl':%% Line 167
+						  'matrix'
+					(_11)
+				in  %% Line 167
+				    [_10|[_12|[]]]
+		in  let <Args> =
+			[_9|%% Line 167
+			    [_15|[]]]
+		    in  %% Line 169
+			apply 'bench_fcts'/5
+			    (_0, _1, [fun 'mat':'*'/2|[fun 'numerl':'*'/2]], Args, [[109|[117|[108|[116|[95|[110|[117|[109|[95|[101]]]]]]]]]]|[[109|[117|[108|[116|[95|[110|[117|[109|[95|[99]]]]]]]]]]]])
+'bench_mult_num'/0 =
+    %% Line 170
+    fun () ->
+	let <_0> =
+	    call %% Line 171
+		 'lists':%% Line 171
+			 'seq'
+		(%% Line 171
+		 20, %% Line 171
+		     100, %% Line 171
+			  10)
+	in  %% Line 171
+	    apply 'bench_mult_num'/2
+		(1500, _0)
+'bench_mult'/2 =
+    %% Line 174
+    fun (_0,_1) ->
+	do  %% Line 175
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[109|[117|[108|[116|[32|[111|[112|[101|[114|[97|[116|[111|[114|[46|[126|[110]]]]]]]]]]]]]]]]]]]]]]]]])
+	    let <_9> =
+		fun (_7) ->
+		    let <_5> =
+			apply %% Line 177
+			      'rnd_matrix'/1
+			    (%% Line 177
+			     _7)
+		    in  let <_6> =
+			    apply %% Line 177
+				  'rnd_matrix'/1
+				(%% Line 177
+				 _7)
+			in  %% Line 177
+			    [_5|[_6|[]]]
+	    in  let <_16> =
+		    fun (_14) ->
+			let <_10> =
+			    apply %% Line 178
+				  'rnd_matrix'/1
+				(%% Line 178
+				 _14)
+			in  let <_11> =
+				call %% Line 178
+				     'numerl':%% Line 178
+					      'matrix'
+				    (_10)
+			    in  let <_12> =
+				    apply %% Line 178
+					  'rnd_matrix'/1
+					(%% Line 178
+					 _14)
+				in  let <_13> =
+					call %% Line 178
+					     'numerl':%% Line 178
+						      'matrix'
+					    (_12)
+				    in  %% Line 178
+					[_11|[_13|[]]]
+		in  let <Args> =
+			[_9|%% Line 178
+			    [_16|[]]]
+		    in  %% Line 180
+			apply 'bench_fcts'/5
+			    (_0, _1, [fun 'mat':'*'/2|[fun 'numerl':'*'/2]], Args, [[109|[117|[108|[116|[95|[101]]]]]]|[[109|[117|[108|[116|[95|[99]]]]]]]])
+'bench_mult'/0 =
+    %% Line 181
+    fun () ->
+	let <_0> =
+	    call %% Line 182
+		 'lists':%% Line 182
+			 'seq'
+		(%% Line 182
+		 20, %% Line 182
+		     100, %% Line 182
+			  10)
+	in  %% Line 182
+	    apply 'bench_mult'/2
+		(500, _0)
+'bench_inv'/2 =
+    %% Line 185
+    fun (_0,_1) ->
+	do  %% Line 186
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[105|[110|[118|[32|[111|[112|[101|[114|[97|[116|[111|[114|[46|[126|[110]]]]]]]]]]]]]]]]]]]]]]]])
+	    let <_8> =
+		fun (_6) ->
+		    let <_5> =
+			apply %% Line 188
+			      'inv_matrix'/1
+			    (%% Line 188
+			     _6)
+		    in  %% Line 188
+			[_5|[]]
+	    in  let <_13> =
+		    fun (_11) ->
+			let <_9> =
+			    apply %% Line 189
+				  'inv_matrix'/1
+				(%% Line 189
+				 _11)
+			in  let <_10> =
+				call %% Line 189
+				     'numerl':%% Line 189
+					      'matrix'
+				    (_9)
+			    in  %% Line 189
+				[_10|[]]
+		in  let <Args> =
+			[_8|%% Line 189
+			    [_13|[]]]
+		    in  %% Line 191
+			apply 'bench_fcts'/5
+			    (_0, _1, [fun 'mat':'inv'/1|[fun 'numerl':'inv'/1]], Args, [[105|[110|[118|[95|[101]]]]]|[[105|[110|[118|[95|[99]]]]]]])
+'bench_inv'/0 =
+    %% Line 192
+    fun () ->
+	let <_0> =
+	    call %% Line 193
+		 'lists':%% Line 193
+			 'seq'
+		(%% Line 193
+		 20, %% Line 193
+		     100, %% Line 193
+			  10)
+	in  %% Line 193
+	    apply 'bench_inv'/2
+		(500, _0)
+'bench_multb'/2 =
+    %% Line 196
+    fun (_0,_1) ->
+	do  %% Line 197
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[66|[76|[65|[83|[32|[97|[103|[97|[105|[110|[115|[32|[110|[97|[239|[118|[101|[32|[109|[117|[108|[116|[105|[112|[108|[105|[99|[97|[116|[105|[111|[110|[46|[126|[110]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]])
+	    let <_13> =
+		fun (_11) ->
+		    let <_5> =
+			apply %% Line 200
+			      'rnd_matrix'/1
+			    (%% Line 200
+			     _11)
+		    in  let <_6> =
+			    call %% Line 200
+				 'numerl':%% Line 200
+					  'matrix'
+				(_5)
+			in  let <_7> =
+				apply %% Line 200
+				      'rnd_matrix'/1
+				    (%% Line 200
+				     _11)
+			    in  let <_8> =
+				    call %% Line 200
+					 'numerl':%% Line 200
+						  'matrix'
+					(_7)
+				in  let <_9> =
+					apply %% Line 200
+					      'rnd_matrix'/1
+					    (%% Line 200
+					     _11)
+				    in  let <_10> =
+					    call %% Line 200
+						 'numerl':%% Line 200
+							  'matrix'
+						(_9)
+					in  %% Line 200
+					    [1|[_6|[_8|[0|[_10|[]]]]]]
+	    in  let <_20> =
+		    fun (_18) ->
+			let <_14> =
+			    apply %% Line 201
+				  'rnd_matrix'/1
+				(%% Line 201
+				 _18)
+			in  let <_15> =
+				call %% Line 201
+				     'numerl':%% Line 201
+					      'matrix'
+				    (_14)
+			    in  let <_16> =
+				    apply %% Line 201
+					  'rnd_matrix'/1
+					(%% Line 201
+					 _18)
+				in  let <_17> =
+					call %% Line 201
+					     'numerl':%% Line 201
+						      'matrix'
+					    (_16)
+				    in  %% Line 201
+					[_15|[_17|[]]]
+		in  let <Args> =
+			[_13|%% Line 201
+			     [_20|[]]]
+		    in  %% Line 203
+			apply 'bench_fcts'/5
+			    (_0, _1, [fun 'numerl':'dgemm'/5|[fun 'numerl':'*'/2]], Args, [[109|[117|[108|[116|[95|[98|[108|[97|[115]]]]]]]]]|[[109|[117|[108|[116|[95|[110|[99]]]]]]]]])
+'bench_multb'/0 =
+    %% Line 204
+    fun () ->
+	let <_0> =
+	    call %% Line 205
+		 'lists':%% Line 205
+			 'seq'
+		(%% Line 205
+		 20, %% Line 205
+		     100, %% Line 205
+			  10)
+	in  %% Line 205
+	    apply 'bench_multb'/2
+		(500, _0)
+'bench_solve'/2 =
+    %% Line 207
+    fun (_0,_1) ->
+	do  %% Line 208
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[105|[110|[118|[101|[114|[115|[101|[32|[115|[111|[108|[118|[101|[114|[46|[126|[110]]]]]]]]]]]]]]]]]]]]]]]]]])
+	    let <_7> =
+		fun (_4,_3) ->
+		    let <I> =
+			call %% Line 209
+			     'numerl':%% Line 209
+				      'inv'
+			    (_4)
+		    in  %% Line 209
+			call 'numerl':'*'
+			    (I, _3)
+	    in  let <Fcts> =
+		    [_7|%% Line 209
+			[fun 'numerl':'dgesv'/2]]
+		in  let <_16> =
+			fun (_14) ->
+			    let <_10> =
+				apply %% Line 211
+				      'inv_matrix'/1
+				    (%% Line 211
+				     _14)
+			    in  let <_11> =
+				    call %% Line 211
+					 'numerl':%% Line 211
+						  'matrix'
+					(_10)
+				in  let <_12> =
+					apply %% Line 211
+					      'rnd_matrix'/1
+					    (%% Line 211
+					     _14)
+				    in  let <_13> =
+					    call %% Line 211
+						 'numerl':%% Line 211
+							  'matrix'
+						(_12)
+					in  %% Line 211
+					    [_11|[_13|[]]]
+		    in  let <_23> =
+			    fun (_21) ->
+				let <_17> =
+				    apply %% Line 212
+					  'inv_matrix'/1
+					(%% Line 212
+					 _21)
+				in  let <_18> =
+					call %% Line 212
+					     'numerl':%% Line 212
+						      'matrix'
+					    (_17)
+				    in  let <_19> =
+					    apply %% Line 212
+						  'rnd_matrix'/1
+						(%% Line 212
+						 _21)
+					in  let <_20> =
+						call %% Line 212
+						     'numerl':%% Line 212
+							      'matrix'
+						    (_19)
+					    in  %% Line 212
+						[_18|[_20|[]]]
+			in  let <Args> =
+				[_16|%% Line 212
+				     [_23|[]]]
+			    in  %% Line 214
+				apply 'bench_fcts'/5
+				    (_0, _1, Fcts, Args, [[115|[111|[108|[118|[101|[95|[99]]]]]]]|[[115|[111|[108|[118|[101|[95|[98|[108|[97|[115]]]]]]]]]]]])
+'bench_solve'/0 =
+    %% Line 215
+    fun () ->
+	let <_0> =
+	    call %% Line 216
+		 'lists':%% Line 216
+			 'seq'
+		(%% Line 216
+		 20, %% Line 216
+		     100, %% Line 216
+			  10)
+	in  %% Line 216
+	    apply 'bench_solve'/2
+		(500, _0)
+'bench_tr'/2 =
+    %% Line 218
+    fun (_0,_1) ->
+	do  %% Line 219
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[116|[114|[32|[111|[112|[101|[114|[97|[116|[111|[114|[46|[126|[110]]]]]]]]]]]]]]]]]]]]]]])
+	    let <_8> =
+		fun (_6) ->
+		    let <_5> =
+			apply %% Line 221
+			      'rnd_matrix'/1
+			    (%% Line 221
+			     _6)
+		    in  %% Line 221
+			[_5|[]]
+	    in  let <_13> =
+		    fun (_11) ->
+			let <_9> =
+			    apply %% Line 222
+				  'rnd_matrix'/1
+				(%% Line 222
+				 _11)
+			in  let <_10> =
+				call %% Line 222
+				     'numerl':%% Line 222
+					      'matrix'
+				    (_9)
+			    in  %% Line 222
+				[_10|[]]
+		in  let <Args> =
+			[_8|%% Line 222
+			    [_13|[]]]
+		    in  %% Line 224
+			apply 'bench_fcts'/5
+			    (_0, _1, [fun 'mat':'tr'/1|[fun 'numerl':'tr'/1]], Args, [[116|[114|[95|[101]]]]|[[116|[114|[95|[99]]]]]])
+'bench_tr'/0 =
+    %% Line 225
+    fun () ->
+	let <_0> =
+	    call %% Line 226
+		 'lists':%% Line 226
+			 'seq'
+		(%% Line 226
+		 20, %% Line 226
+		     200, %% Line 226
+			  20)
+	in  %% Line 226
+	    apply 'bench_tr'/2
+		(2000, _0)
+'bench'/0 =
+    %% Line 229
+    fun () ->
+	do  %% Line 230
+	    apply 'bench_zeros'/0
+		()
+	    do  %% Line 231
+		apply 'bench_mult_num'/0
+		    ()
+		do  %% Line 232
+		    apply 'bench_mult'/0
+			()
+		    do  %% Line 233
+			apply 'bench_inv'/0
+			    ()
+			do  %% Line 234
+			    apply 'bench_multb'/0
+				()
+			    do  %% Line 235
+				apply 'bench_solve'/0
+				    ()
+				%% Line 236
+				apply 'bench_tr'/0
+				    ()
+'bench_small_fcts'/6 =
+    %% Line 242
+    fun (_0,_1,_2,_3,_4,_5) ->
+	case <_0,_1,_2,_3,_4,_5> of
+	  <_25,_26,_27,[],[],[]> when 'true' ->
+	      %% Line 243
+	      call 'io':'format'
+		  ([70|[105|[110|[105|[115|[104|[101|[100|[46]]]]]]]]])
+	  %% Line 245
+	  <NRuns,Steps,Factor,[F|Fcts],[Arg|Args],[File|Files]> when 'true' ->
+	      do  %% Line 246
+		  call 'io':'format'
+		      ([82|[117|[110|[110|[105|[110|[103|[32|[98|[101|[110|[99|[104|[109|[97|[114|[107|[32|[32|[126|[115]]]]]]]]]]]]]]]]]]]]], [File|[]])
+		  let <_13> =
+		      letrec
+			  'lc$^0'/1 =
+			      %% Line 247
+			      fun (_8) ->
+				  case _8 of
+				    <[N|_7]> when 'true' ->
+					let <_9> =
+					    apply Arg
+						(N)
+					in  let <_10> =
+						apply 'b'/3
+						    (F, _9, NRuns)
+					    in  let <_11> =
+						    call 'erlang':'/'
+							(_10, Factor)
+						in  let <_12> =
+							apply 'lc$^0'/1
+							    (_7)
+						    in  ( [_11|_12]
+							  -| ['compiler_generated'] )
+				    <[]> when 'true' ->
+					[]
+				    ( <_28> when 'true' ->
+					  ( primop 'match_fail'
+						({'function_clause',_28})
+					    -| [{'function_name',{'lc$^0',1}}] )
+				      -| ['compiler_generated'] )
+				  end
+		      in  %% Line 247
+			  apply 'lc$^0'/1
+			      (Steps)
+		  in  do  %% Line 248
+			  apply 'write_to_file'/3
+			      (File, Steps, _13)
+			  let <_15> =
+			      call %% Line 249
+				   'lists':%% Line 249
+					   'sum'
+				  (_13)
+			  in  let <_16> =
+				  call %% Line 249
+				       'erlang':%% Line 249
+						'*'
+				      (_15, %% Line 249
+					    NRuns)
+			      in  let <_17> =
+				      call %% Line 249
+					   'erlang':%% Line 249
+						    '*'
+					  (_16, %% Line 249
+						Factor)
+				  in  let <_18> =
+					  call %% Line 249
+					       'erlang':%% Line 249
+							'/'
+					      (_17, %% Line 249
+						    1000)
+				      in  do  %% Line 249
+					      call 'io':'format'
+						  ([59|[32|[102|[105|[110|[105|[115|[104|[101|[100|[32|[105|[110|[32|[126|[102|[32|[109|[115|[126|[110]]]]]]]]]]]]]]]]]]]]], [_18|[]])
+					      %% Line 250
+					      apply 'bench_small_fcts'/6
+						  (NRuns, Steps, Factor, Fcts, Args, Files)
+	  ( <_24,_23,_22,_21,_20,_19> when 'true' ->
+		( primop 'match_fail'
+		      ({'function_clause',_24,_23,_22,_21,_20,_19})
+		  -| [{'function_name',{'bench_small_fcts',6}}] )
+	    -| ['compiler_generated'] )
+	end
+'bench_plus'/2 =
+    %% Line 254
+    fun (_0,_1) ->
+	do  %% Line 255
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[112|[108|[117|[115|[32|[111|[112|[101|[114|[97|[116|[111|[114|[46|[126|[110]]]]]]]]]]]]]]]]]]]]]]]]])
+	    let <_9> =
+		fun (_7) ->
+		    let <_5> =
+			apply %% Line 257
+			      'rnd_matrix'/1
+			    (%% Line 257
+			     _7)
+		    in  let <_6> =
+			    apply %% Line 257
+				  'rnd_matrix'/1
+				(%% Line 257
+				 _7)
+			in  %% Line 257
+			    [_5|[_6|[]]]
+	    in  let <_16> =
+		    fun (_14) ->
+			let <_10> =
+			    apply %% Line 258
+				  'rnd_matrix'/1
+				(%% Line 258
+				 _14)
+			in  let <_11> =
+				call %% Line 258
+				     'numerl':%% Line 258
+					      'matrix'
+				    (_10)
+			    in  let <_12> =
+				    apply %% Line 258
+					  'rnd_matrix'/1
+					(%% Line 258
+					 _14)
+				in  let <_13> =
+					call %% Line 258
+					     'numerl':%% Line 258
+						      'matrix'
+					    (_12)
+				    in  %% Line 258
+					[_11|[_13|[]]]
+		in  let <Args> =
+			[_9|%% Line 258
+			    [_16|[]]]
+		    in  %% Line 260
+			apply 'bench_small_fcts'/6
+			    (_0, _1, 10000, [fun 'benchk':'matplus'/2|[fun 'benchk':'numerlplus'/2]], Args, [[112|[108|[117|[115|[95|[101]]]]]]|[[112|[108|[117|[115|[95|[99]]]]]]]])
+'bench_plus'/0 =
+    %% Line 261
+    fun () ->
+	let <_0> =
+	    call %% Line 262
+		 'lists':%% Line 262
+			 'seq'
+		(%% Line 262
+		 1, %% Line 262
+		    100, %% Line 262
+			 10)
+	in  %% Line 262
+	    apply 'bench_plus'/2
+		(100, _0)
+'rnd_vec_max'/1 =
+    %% Line 264
+    fun (_0) ->
+	%% Line 265
+	( letrec
+	      'lc$^0'/1 =
+		  fun (_4) ->
+		      case _4 of
+			<[_9|_2]> when 'true' ->
+			    let <_5> =
+				apply 'rnd'/0
+				    ()
+			    in  let <_6> =
+				    call 'erlang':'float'
+					(_5)
+				in  let <_7> =
+					apply 'lc$^0'/1
+					    (_2)
+				    in  ( [_6|_7]
+					  -| ['compiler_generated'] )
+			<[]> when 'true' ->
+			    []
+			( <_10> when 'true' ->
+			      ( primop 'match_fail'
+				    ({'function_clause',_10})
+				-| [{'function_name',{'lc$^0',1}}] )
+			  -| ['compiler_generated'] )
+		      end
+	  in  let <_3> =
+		  call 'lists':'seq'
+		      (1, _0)
+	      in  apply 'lc$^0'/1
+		      (_3)
+	  -| ['list_comprehension'] )
+'bench_emax'/2 =
+    %% Line 267
+    fun (_0,_1) ->
+	let <_7> =
+	    fun (_5) ->
+		let <_4> =
+		    apply %% Line 269
+			  'rnd_vec_max'/1
+			(%% Line 269
+			 _5)
+		in  %% Line 269
+		    [_4|[0]]
+	in  let <Args> =
+		[_7|%% Line 269
+		    []]
+	    in  %% Line 271
+		apply 'bench_small_fcts'/6
+		    (_0, _1, 10000, [fun 'benchk':'listMax'/2], Args, [[109|[97|[120|[95|[101]]]]]])
+'bench_max'/2 =
+    %% Line 273
+    fun (_0,_1) ->
+	let <_9> =
+	    fun (_7) ->
+		let <_6> =
+		    apply %% Line 275
+			  'rnd_vec_max'/1
+			(%% Line 275
+			 _7)
+		in  %% Line 275
+		    [_6|[]]
+	in  let <_13> =
+		fun (_11) ->
+		    let <_10> =
+			apply %% Line 276
+			      'rnd_vec_max'/1
+			    (%% Line 276
+			     _11)
+		    in  %% Line 276
+			[_10|[]]
+	    in  let <_18> =
+		    fun (_16) ->
+			let <_14> =
+			    apply %% Line 277
+				  'rnd_vec_max'/1
+				(%% Line 277
+				 _16)
+			in  let <_15> =
+				call %% Line 277
+				     'numerl':%% Line 277
+					      'matrix'
+				    (%% Line 277
+				     [_14|[]])
+			    in  %% Line 277
+				[_15|[]]
+		in  let <Args> =
+			[_9|%% Line 276
+			    [_13|%% Line 277
+				 [_18|[]]]]
+		    in  %% Line 280
+			apply 'bench_small_fcts'/6
+			    (_0, _1, 1000, [fun 'benchk':'listMax'/2|[fun 'benchk':'nif_max'/2|[fun 'benchk':'nif_matrix_max'/2]]], Args, [[109|[97|[120|[95|[108|[105|[115|[116|[95|[101]]]]]]]]]]|[[109|[97|[120|[95|[108|[105|[115|[116|[95|[99]]]]]]]]]]|[[109|[97|[120|[95|[109|[97|[116|[95|[99]]]]]]]]]]]])
+'bench_max'/0 =
+    %% Line 281
+    fun () ->
+	let <_0> =
+	    call %% Line 282
+		 'lists':%% Line 282
+			 'seq'
+		(%% Line 282
+		 1, %% Line 282
+		    10)
+	in  %% Line 282
+	    apply 'bench_max'/2
+		(20000, _0)
+'bench_small_zero'/2 =
+    %% Line 284
+    fun (_0,_1) ->
+	do  %% Line 285
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[115|[109|[97|[108|[108|[32|[122|[101|[114|[111|[46|[126|[110]]]]]]]]]]]]]]]]]]]]]])
+	    let <_7> =
+		fun (_5) ->
+		    %% Line 287
+		    [_5|[_5|[]]]
+	    in  let <_10> =
+		    fun (_8) ->
+			%% Line 288
+			[_8|[_8|[]]]
+		in  let <Args> =
+			[_7|%% Line 288
+			    [_10|[]]]
+		    in  %% Line 290
+			apply 'bench_small_fcts'/6
+			    (_0, _1, 1000, [fun 'benchk':'mat_zeros'/2|[fun 'benchk':'numerl_zeros'/2]], Args, [[115|[109|[97|[108|[108|[95|[122|[101|[114|[111|[95|[101]]]]]]]]]]]]|[[115|[109|[97|[108|[108|[95|[122|[101|[114|[111|[95|[99]]]]]]]]]]]]]])
+'bench_small_zero'/0 =
+    %% Line 291
+    fun () ->
+	let <_0> =
+	    call %% Line 292
+		 'lists':%% Line 292
+			 'seq'
+		(%% Line 292
+		 1, %% Line 292
+		    50, %% Line 292
+			5)
+	in  %% Line 292
+	    apply 'bench_small_zero'/2
+		(1000, _0)
+'bench_small_mult'/2 =
+    %% Line 294
+    fun (_0,_1) ->
+	do  %% Line 295
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[115|[109|[97|[108|[108|[32|[109|[117|[108|[116|[46|[126|[110]]]]]]]]]]]]]]]]]]]]]])
+	    let <_9> =
+		fun (_7) ->
+		    let <_5> =
+			apply %% Line 297
+			      'rnd_matrix'/1
+			    (%% Line 297
+			     _7)
+		    in  let <_6> =
+			    apply %% Line 297
+				  'rnd_matrix'/1
+				(%% Line 297
+				 _7)
+			in  %% Line 297
+			    [_5|[_6|[]]]
+	    in  let <_16> =
+		    fun (_14) ->
+			let <_10> =
+			    apply %% Line 298
+				  'rnd_matrix'/1
+				(%% Line 298
+				 _14)
+			in  let <_11> =
+				call %% Line 298
+				     'numerl':%% Line 298
+					      'matrix'
+				    (_10)
+			    in  let <_12> =
+				    apply %% Line 298
+					  'rnd_matrix'/1
+					(%% Line 298
+					 _14)
+				in  let <_13> =
+					call %% Line 298
+					     'numerl':%% Line 298
+						      'matrix'
+					    (_12)
+				    in  %% Line 298
+					[_11|[_13|[]]]
+		in  let <Args> =
+			[_9|%% Line 298
+			    [_16|[]]]
+		    in  %% Line 300
+			apply 'bench_small_fcts'/6
+			    (_0, _1, 500, [fun 'benchk':'mat_mult'/2|[fun 'benchk':'numerl_mult'/2]], Args, [[115|[109|[97|[108|[108|[95|[109|[117|[108|[116|[95|[101]]]]]]]]]]]]|[[115|[109|[97|[108|[108|[95|[109|[117|[108|[116|[95|[99]]]]]]]]]]]]]])
+'bench_small_mult'/0 =
+    %% Line 301
+    fun () ->
+	let <_0> =
+	    call %% Line 302
+		 'lists':%% Line 302
+			 'seq'
+		(%% Line 302
+		 1, %% Line 302
+		    10, %% Line 302
+			1)
+	in  %% Line 302
+	    apply 'bench_small_mult'/2
+		(500, _0)
+'bench_small_inv'/2 =
+    %% Line 304
+    fun (_0,_1) ->
+	do  %% Line 305
+	    call 'io':'format'
+		([66|[101|[110|[99|[104|[105|[110|[103|[32|[115|[109|[97|[108|[108|[32|[109|[117|[108|[116|[46|[126|[110]]]]]]]]]]]]]]]]]]]]]])
+	    let <_8> =
+		fun (_6) ->
+		    let <_5> =
+			apply %% Line 307
+			      'rnd_matrix'/1
+			    (%% Line 307
+			     _6)
+		    in  %% Line 307
+			[_5|[]]
+	    in  let <_13> =
+		    fun (_11) ->
+			let <_9> =
+			    apply %% Line 308
+				  'rnd_matrix'/1
+				(%% Line 308
+				 _11)
+			in  let <_10> =
+				call %% Line 308
+				     'numerl':%% Line 308
+					      'matrix'
+				    (_9)
+			    in  %% Line 308
+				[_10|[]]
+		in  let <Args> =
+			[_8|%% Line 308
+			    [_13|[]]]
+		    in  %% Line 310
+			apply 'bench_small_fcts'/6
+			    (_0, _1, 1000, [fun 'benchk':'mat_inv'/1|[fun 'benchk':'numerl_inv'/1]], Args, [[115|[109|[97|[108|[108|[95|[105|[110|[118|[95|[101]]]]]]]]]]]|[[115|[109|[97|[108|[108|[95|[105|[110|[118|[95|[99]]]]]]]]]]]]])
+'run_all_fcts'/2 =
+    %% Line 313
+    fun (_0,_1) ->
+	do  %% Line 314
+	    ( call ( 'numerl'
+		     -| ['result_not_wanted'] ):( 'eye'
+						  -| ['result_not_wanted'] )
+		  (_1)
+	      -| ['result_not_wanted'] )
+	    do  %% Line 315
+		( call ( 'numerl'
+			 -| ['result_not_wanted'] ):( 'zeros'
+						      -| ['result_not_wanted'] )
+		      (_1, _1)
+		  -| ['result_not_wanted'] )
+		do  %% Line 316
+		    ( call ( 'numerl'
+			     -| ['result_not_wanted'] ):( '+'
+							  -| ['result_not_wanted'] )
+			  (_0, _0)
+		      -| ['result_not_wanted'] )
+		    do  %% Line 317
+			( call ( 'numerl'
+				 -| ['result_not_wanted'] ):( '-'
+							      -| ['result_not_wanted'] )
+			      (_0, _1)
+			  -| ['result_not_wanted'] )
+			do  %% Line 318
+			    ( call ( 'numerl'
+				     -| ['result_not_wanted'] ):( '*'
+								  -| ['result_not_wanted'] )
+				  (_1, _0)
+			      -| ['result_not_wanted'] )
+			    do  %% Line 319
+				( call ( 'numerl'
+					 -| ['result_not_wanted'] ):( '*'
+								      -| ['result_not_wanted'] )
+				      (_0, _0)
+				  -| ['result_not_wanted'] )
+				do  %% Line 320
+				    ( call ( 'numerl'
+					     -| ['result_not_wanted'] ):( 'tr'
+									  -| ['result_not_wanted'] )
+					  (_0)
+				      -| ['result_not_wanted'] )
+				    %% Line 321
+				    ( call ( 'numerl'
+					     -| ['result_not_wanted'] ):( 'inv'
+									  -| ['result_not_wanted'] )
+					  (_0)
+				      -| ['result_not_wanted'] )
+'loop_fct_until'/2 =
+    %% Line 324
+    fun (_0,_1) ->
+	let <CurTime> =
+	    call %% Line 325
+		 'erlang':%% Line 325
+			  'system_time'
+		(%% Line 325
+		 'second')
+	in  %% Line 326
+	    case <> of
+	      <>
+		  when call 'erlang':'>'
+			(CurTime,
+			 _1) ->
+		  'ok'
+	      %% Line 327
+	      <> when 'true' ->
+		  do  %% Line 328
+		      apply _0
+			  ()
+		      %% Line 329
+		      apply 'loop_fct_until'/2
+			  (_0, _1)
+	    end
+'loop_fct_for_s'/2 =
+    %% Line 332
+    fun (_0,_1) ->
+	let <CurTime> =
+	    call %% Line 333
+		 'erlang':%% Line 333
+			  'system_time'
+		(%% Line 333
+		 'second')
+	in  let <_3> =
+		call %% Line 334
+		     'erlang':%% Line 334
+			      '+'
+		    (%% Line 334
+		     CurTime, _1)
+	    in  %% Line 334
+		apply 'loop_fct_until'/2
+		    (_0, _3)
+'reduce_col'/3 =
+    %% Line 337
+    fun (_0,_1,_2) ->
+	case <_0,_1,_2> of
+	  <[],C,Rm> when 'true' ->
+	      let <_4> =
+		  call %% Line 338
+		       'lists':%% Line 338
+			       'reverse'
+		      (%% Line 338
+		       C)
+	      in  let <_3> =
+		      call %% Line 338
+			   'lists':%% Line 338
+				   'reverse'
+			  (%% Line 338
+			   Rm)
+		  in  %% Line 338
+		      {_4,_3}
+	  %% Line 339
+	  <[[Hr|Tr]|Rows],C,Rm> when 'true' ->
+	      %% Line 340
+	      apply 'reduce_col'/3
+		  (Rows, [Hr|C], [Tr|Rm])
+	  ( <_7,_6,_5> when 'true' ->
+		( primop 'match_fail'
+		      ({'function_clause',_7,_6,_5})
+		  -| [{'function_name',{'reduce_col',3}}] )
+	    -| ['compiler_generated'] )
+	end
+'btr'/2 =
+    %% Line 342
+    fun (_0,_1) ->
+	case <_0,_1> of
+	  <[[]|_5],Tr> when 'true' ->
+	      %% Line 343
+	      call 'lists':'reverse'
+		  (Tr)
+	  %% Line 344
+	  <M,Tr> when 'true' ->
+	      %% Line 345
+	      case apply 'reduce_col'/3
+		       (M, [], []) of
+		<{Col,Rst}> when 'true' ->
+		    %% Line 346
+		    apply 'btr'/2
+			(Rst, [Col|Tr])
+		( <_2> when 'true' ->
+		      primop 'match_fail'
+			  ({'badmatch',_2})
+		  -| ['compiler_generated'] )
+	      end
+	end
+'btr'/1 =
+    %% Line 347
+    fun (_0) ->
+	%% Line 348
+	apply 'btr'/2
+	    (_0, [])
+'btrf'/4 =
+    %% Line 354
+    fun (_0,_1,_2,_3) ->
+	case <_0,_1,_2,_3> of
+	  <[[]|_10],[],[],NewRows> when 'true' ->
+	      %% Line 355
+	      call 'lists':'reverse'
+		  (NewRows)
+	  %% Line 357
+	  <[],AccCols,AccCol,NewRows> when 'true' ->
+	      let <_5> =
+		  call %% Line 358
+		       'lists':%% Line 358
+			       'reverse'
+		      (%% Line 358
+		       AccCols)
+	      in  let <_4> =
+		      call %% Line 358
+			   'lists':%% Line 358
+				   'reverse'
+			  (%% Line 358
+			   AccCol)
+		  in  %% Line 358
+		      apply 'btrf'/4
+			  (_5, [], [], [_4|NewRows])
+	  %% Line 360
+	  <[[Rh|Rt]|Rows],AccCols,AccCol,NewRows> when 'true' ->
+	      %% Line 361
+	      apply 'btrf'/4
+		  (Rows, [Rt|AccCols], [Rh|AccCol], NewRows)
+	  ( <_9,_8,_7,_6> when 'true' ->
+		( primop 'match_fail'
+		      ({'function_clause',_9,_8,_7,_6})
+		  -| [{'function_name',{'btrf',4}}] )
+	    -| ['compiler_generated'] )
+	end
+'btrf'/1 =
+    %% Line 363
+    fun (_0) ->
+	%% Line 364
+	apply 'btrf'/4
+	    (_0, [], [], [])
+'split'/2 =
+    %% Line 373
+    fun (_0,_1) ->
+	case <_0,_1> of
+	  <0,_6> when 'true' ->
+	      %% Line 374
+	      []
+	  %% Line 375
+	  <N,[H|T]> when 'true' ->
+	      let <_2> =
+		  call %% Line 376
+		       'erlang':%% Line 376
+				'-'
+		      (%% Line 376
+		       N, %% Line 376
+			  1)
+	      in  let <_3> =
+		      apply %% Line 376
+			    'split'/2
+			  (_2, %% Line 376
+			       T)
+		  in  %% Line 376
+		      [H|_3]
+	  ( <_5,_4> when 'true' ->
+		( primop 'match_fail'
+		      ({'function_clause',_5,_4})
+		  -| [{'function_name',{'split',2}}] )
+	    -| ['compiler_generated'] )
+	end
+'split_tr'/3 =
+    %% Line 378
+    fun (_0,_1,_2) ->
+	case <_0,_1,_2> of
+	  <0,_7,R> when 'true' ->
+	      %% Line 379
+	      call 'lists':'reverse'
+		  (R, [])
+	  %% Line 380
+	  <N,[H|T],R> when 'true' ->
+	      let <_3> =
+		  call %% Line 381
+		       'erlang':%% Line 381
+				'-'
+		      (%% Line 381
+		       N, %% Line 381
+			  1)
+	      in  %% Line 381
+		  apply 'split_tr'/3
+		      (_3, T, [H|R])
+	  ( <_6,_5,_4> when 'true' ->
+		( primop 'match_fail'
+		      ({'function_clause',_6,_5,_4})
+		  -| [{'function_name',{'split_tr',3}}] )
+	    -| ['compiler_generated'] )
+	end
+'m_tr'/1 =
+    %% Line 383
+    fun (_0) ->
+	case _0 of
+	  <[[]|_13]> when 'true' ->
+	      []
+	  %% Line 384
+	  <L> when 'true' ->
+	      let <_5> =
+		  letrec
+		      'lc$^0'/1 =
+			  %% Line 385
+			  fun (_3) ->
+			      case _3 of
+				<[[C|_14]|_2]> when 'true' ->
+				    let <_4> =
+					apply 'lc$^0'/1
+					    (_2)
+				    in  ( [C|_4]
+					  -| ['compiler_generated'] )
+				( <[_1|_2]> when 'true' ->
+				      apply 'lc$^0'/1
+					  (_2)
+				  -| ['compiler_generated'] )
+				<[]> when 'true' ->
+				    []
+				( <_16> when 'true' ->
+				      ( primop 'match_fail'
+					    ({'function_clause',_16})
+					-| [{'function_name',{'lc$^0',1}}] )
+				  -| ['compiler_generated'] )
+			      end
+		  in  %% Line 385
+		      apply 'lc$^0'/1
+			  (L)
+	      in  let <_10> =
+		      letrec
+			  'lc$^1'/1 =
+			      %% Line 385
+			      fun (_8) ->
+				  case _8 of
+				    <[[_15|T]|_7]> when 'true' ->
+					let <_9> =
+					    apply 'lc$^1'/1
+						(_7)
+					in  ( [T|_9]
+					      -| ['compiler_generated'] )
+				    ( <[_6|_7]> when 'true' ->
+					  apply 'lc$^1'/1
+					      (_7)
+				      -| ['compiler_generated'] )
+				    <[]> when 'true' ->
+					[]
+				    ( <_17> when 'true' ->
+					  ( primop 'match_fail'
+						({'function_clause',_17})
+					    -| [{'function_name',{'lc$^1',1}}] )
+				      -| ['compiler_generated'] )
+				  end
+		      in  %% Line 385
+			  apply 'lc$^1'/1
+			      (L)
+		  in  let <_11> =
+			  apply %% Line 385
+				'm_tr'/1
+			      (_10)
+		      in  %% Line 385
+			  [_5|_11]
+	end
+'empty_fun'/0 =
+    %% Line 388
+    fun () ->
+	'true'
+'module_info'/0 =
+    fun () ->
+	call 'erlang':'get_module_info'
+	    ('benchmark')
+'module_info'/1 =
+    fun (_0) ->
+	call 'erlang':'get_module_info'
+	    ('benchmark', _0)
+end

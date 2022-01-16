@@ -1,14 +1,52 @@
 -module(mat).
-
--export([tr/1, inv/1]).
--export(['+'/2, '-'/2, '=='/2, '*'/2, '*´'/2]).
--export([row/2, col/2, get/3]).
--export([zeros/2, eye/1]).
--export([eval/1, list_to_matrix/2]).
-
+-compile(export_all).
 -export_type([matrix/0]).
-
 -type matrix() :: [[number(), ...], ...].
+
+
+
+%Used to measure the average run time required for a function to run.
+%Measure in micro seconds.
+bench(_,_,_,0,R)->
+    R;
+bench(F, A,N,I,R)->
+    {Time, _} = timer:tc(F, A),
+    bench(F, A, N,I-1, R+(Time/float(N))).
+%Run the function N time to get its average performance.
+bench(F ,Args ,N) ->
+    %Do a FULL preheat
+    _ = bench(F, Args, N, N, 0.0),
+    bench(F, Args, N, N, 0.0).
+%Run the function F a number of times.
+bench(F, Args)->
+    bench(F, Args, 5).
+
+%Used to measure the average run time required for a function to run.
+%Measure in micro seconds.
+bench_nano(_,_,_,0,R)->
+    R;
+bench_nano(F,Arg,N,I,R)->
+    T = erlang:system_time(nanosecond),
+    F(Arg),
+    bench_nano(F,Arg, N,I-1, R+((erlang:system_time(nanosecond))-T/float(N))).
+%Run the function N time to get its average performance.
+bench_nano(F,Arg,N) ->
+    %Do a FULL preheat
+    _ = bench_nano(F,Arg, N, N, 0.0),
+    bench_nano(F, Arg, N, N, 0.0).
+%Run the function F a number of times.
+bench_nano(F, Arg)->
+    bench_nano(F, Arg, 5).
+
+
+
+%Save a function
+write_to_file(Name, Intervals, Values)->
+    FName = string:concat(string:concat("../benchRes/", Name), ".txt"),
+    {ok, File} = file:open(FName, [write]),
+    io:fwrite(File, "~p~n~p", [Intervals, Values]).
+
+%
 
 %% convert a list into a NxM matrix with N = length(List)/M
 -spec list_to_matrix(List, M) -> Matrix when

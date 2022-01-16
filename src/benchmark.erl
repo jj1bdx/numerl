@@ -6,6 +6,27 @@
 
 %Used to measure the average run time required for a function to run.
 %Measure in micro seconds.
+bench_nano(_,_,_,0,R)->
+    R;
+bench_nano(F,Arg,N,I,R)->
+    T = erlang:system_time(nanosecond),
+    F(Arg),
+    bench_nano(F,Arg, N,I-1, R+((erlang:system_time(nanosecond)-T)/float(N))).
+%Run the function N time to get its average performance.
+bench_nano(F,Arg,N) ->
+    %Do a FULL preheat
+    _ = bench_nano(F,Arg, N, N, 0.0),
+    bench_nano(F, Arg, N, N, 0.0).
+%Run the function F a number of times.
+bench_nano(F, Arg)->
+    bench_nano(F, Arg, 5).
+
+it([], Acc)-> Acc;
+it([H|T], Acc) -> it(T, [H|Acc]).
+it(L) -> it(L, []).
+
+%Used to measure the average run time required for a function to run.
+%Measure in micro seconds.
 bench(_,_,_,0,R)->
     R;
 
@@ -366,3 +387,6 @@ split_tr(N,[H|T], R)->
 m_tr([[]|_]) -> [];
 m_tr(L)->
     [[ C || [C|_] <- L] |  m_tr([T || [_|T] <- L])].
+
+
+empty_fun()-> true.
